@@ -3,7 +3,17 @@ import dotenv from "dotenv";
 import { categorySchema } from "../features/product/category.schema.js";
 
 dotenv.config();
-const url = process.env.DB_URL;
+
+const dbUsername = process.env.DB_USERNAME;
+const dbPassword = process.env.DB_PASSWORD;
+const dbCluster = process.env.DB_CLUSTER;
+const dbName = process.env.DB_NAME;
+
+const encodedPassword = encodeURIComponent(dbPassword);
+
+// Construct the MongoDB connection string
+const url = `mongodb+srv://pratikmore408:${encodedPassword}@cluster0.bibaswd.mongodb.net/ecomdb?retryWrites=true&w=majority`;
+
 export const connectUsingMongoose = async()=>{
     try{
         await mongoose.connect(url, {
